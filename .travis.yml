@@ -8,6 +8,7 @@ matrix:
   allow_failures:
     - go: tip
 before_install:
+  - 'echo db.runCommand( { serverStatus: 1, workingSet: 1 } ) | mongo'
   - sed -i "s|git://github.com/tsuru/tsuru.git|https://github.com/tsuru/tsuru|g" .git/config
   - sudo apt-get update -qq > apt-get.out 2>&1  || (cat apt-get.out && exit 1)
   - sudo apt-get install bzr mercurial git -qq > apt-get.out 2>&1 || (cat apt-get.out && exit 1)
