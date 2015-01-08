@@ -72,6 +72,15 @@ func RunServer(dry bool) http.Handler {
 		dbName = db.DefaultDatabaseName
 	}
 	fmt.Printf("Using mongodb database %q from the server %q.\n", dbName, connString)
+	router, err := config.Get("docker:router")
+	if err != nil {
+		fatal(err)
+	}
+	hipache, err := config.GetString("hipache:domain")
+	if err != nil {
+		fatal(err)
+	}
+	fmt.Printf("Using %s router %q.\n", router, hipache)
 
 	m := &delayedRouter{}
 
